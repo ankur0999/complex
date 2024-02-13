@@ -7,7 +7,7 @@ class complex{
         float y;
     public:
         // constructor
-        complex(float x, float y){
+        complex(float x, float y=0){
              this->x = x;
              this->y = y;
              }
@@ -18,49 +18,39 @@ class complex{
              this->x = c.x;
              this->y = c.y;
              }
-	 complex(int x){
-		 this->x = x;
-		 this->y = 0;
-	 }
-        complex operator +(complex c){
-            complex tmp;
-                tmp.x = this->x + c.x;
-                tmp.y = this->y + c.y;
-                return tmp;
-                }
-        complex operator +(int x){
-            complex tmp;
-                tmp.x = this->x + x;
-                tmp.y = this->y + 0;
-                return tmp;
-                }
-        complex operator *(complex c){
-             complex tmp;
-             tmp.x = this->x*c.x - this->y*c.y;
-             tmp.y = this->x*c.y + this->y*c.x;
-             return tmp;
-             }
-        complex operator *(int x){
-             complex tmp;
-             tmp.x = this->x*x - this->y*0;
-             tmp.y = this->x*0 + this->y*x;
-             return tmp;
-             }
-        void show_data(){
-            cout<<x<<" "<<y<<endl;
-            }
-            };
+	 
+        friend istream& operator >>(istream& , complex&);
+        friend ostream& operator <<(ostream& , complex);
+
+        friend complex operator +(complex, complex);
+     
+        friend complex operator *(complex, complex);
+        };
+        
+        complex operator +(complex d, complex c){
+            return complex(c.x + d.x ,  c.y + d.y);
+                } 
+
+        complex operator *(complex c, complex d){
+             return complex(c.x*d.x - c.y*d.y, d.x*c.y + d.y*c.x);
+             } 
+
+           
+
+        istream& operator >>(istream& cin, complex& c){
+            return cin>>c.x>>c.y;
+        }    
+        ostream& operator <<(ostream& cout, complex c){
+            return cout<<c.x<<" "<<c.y;
+        }
             
 int main(){
     complex c1(1,2), c2(2,3), c3,c4, c6(1);
+    cout << "enter data: ";
+    cin >> c1;
+    c3 = 1+c1*5;
     
-    c3 = c1+c2+2;
-    //c3.show_data();
-    //c4 = c3*c2;
-    //complex c5(c4);
-    //c5.show_data();
-    //c6 = c1+c2*c4;
-    c3.show_data();
+    cout<<c3;
     
     }
     
